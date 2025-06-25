@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offre TMRR - Ramen Shifu</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #0B2326;
+            background-color: #FAFAFA;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            min-height: 100vh;
+        }
+        
+        /* Password Protection */
+        #password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 35, 38, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .password-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 400px;
+        }
+        
+        .password-box h2 {
+            color: #e95241;
+            margin-bottom: 20px;
+        }
+        
+        .password-box input {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #F1F3F5;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .password-box button {
+            background: #e95241;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .password-box button:hover {
+            background: #d63a29;
+            transform: translateY(-2px);
+        }
+        
+        #protected-content {
+            display: none;
+        }
+        
+        /* Header Styles */
+        .header-info {
+            background: linear-gradient(135deg, #F8F9FA 0%, #F1F3F5 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .header-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .header-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header-label {
+            font-weight: 600;
+            color: #e95241;
+            min-width: 100px;
+        }
+        
+        /* Main Offer Header */
+        .offer-banner {
+            background: linear-gradient(135deg, #e95241 0%, #d63a29 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(233, 82, 65, 0.3);
+        }
+        
+        .offer-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-30px, -30px) rotate(180deg); }
+        }
+        
+        .offer-banner h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin: 20px 0;
+            letter-spacing: -2px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .offer-banner .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .offer-banner .ref {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Section Styles */
+        .section {
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border: 1px solid #F1F3F5;
+            transition: all 0.3s ease;
+        }
+        
+        .section-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+        
+        h2 {
+            color: #e95241;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h3 {
+            color: #0B2326;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+        
+        /* Site Button */
+        .site-button {
+            display: inline-block;
+            background: #e95241;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .site-button:hover {
+            background: #d63a29;
+            transform: translateY(-2px);
+        }
+        
+        /* Insight Box */
+        .insight-box {
+            background: linear-gradient(135deg, #0B2326 0%, #184549 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .insight-box::after {
+            content: '💡';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+        
+        /* Benefits List */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .benefit-item {
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #28a745;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .benefit-icon {
+            font-size: 24px;
+        }
+        
+        .benefit-text {
+            flex: 1;
+        }
+        
+        .benefit-value {
+            color: #28a745;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        
+        /* Phase Cards */
+        .phase-card {
+            background: #F8F9FA;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            border-left: 5px solid #e95241;
+            transition: all 0.3s ease;
+        }
+        
+        .phase-card:hover {
+            background: #F1F3F5;
+            transform: translateX(5px);
+        }
+        
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .phase-title {
+            font-weight: 600;
+            color: #0B2326;
+            font-size: 1.1em;
+        }
+        
+        .phase-meta {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .phase-hours {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .phase-price {
+            color: #e95241;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        
+        /* Deliverables */
+        .deliverables {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .deliverables li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            color: #495057;
+        }
+        
+        .deliverables li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+            top: 12px;
+        }
+        
+        /* Financial Summary */
+        .financial-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin: 30px 0;
+        }
+        
+        .financial-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .financial-table th {
+            background: #e95241;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .financial-table td {
+            padding: 20px;
+            border-bottom: 1px solid #F1F3F5;
+        }
+        
+        .financial-table tr:last-child td {
+            border-bottom: none;
+            background: #F8F9FA;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        
+        /* Price Box */
+        .price-highlight {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border: 2px solid #F59E0B;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .price-highlight::before {
+            content: '💰';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            font-size: 150px;
+            opacity: 0.1;
+        }
+        
+        .price-highlight h3 {
+            color: #92400E;
+            margin-bottom: 20px;
+        }
+        
+        .price-amount {
+            font-size: 3em;
+            font-weight: 800;
+            color: #e95241;
+            margin: 20px 0;
+            letter-spacing: -2px;
+        }
+        
+        .price-savings {
+            background: #28a745;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        
+        /* CTA Button */
+        .cta-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #e95241 0%, #d63a29 100%);
+            color: white;
+            padding: 25px 50px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.3em;
+            box-shadow: 0 10px 25px rgba(233, 82, 65, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(233, 82, 65, 0.4);
+        }
+        
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .cta-button:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #F8F9FA 0%, #F1F3F5 100%);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .footer-contacts {
+            margin: 30px 0;
+            color: #495057;
+        }
+        
+        .footer-brand {
+            font-size: 1.3em;
+            color: #e95241;
+            font-weight: 700;
+            margin-top: 30px;
+        }
+        
+        /* Warning Box */
+        .warning-box {
+            background: #FFF3CD;
+            border-left: 4px solid #F59E0B;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .warning-box p {
+            color: #856404;
+            margin: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .offer-banner h1 {
+                font-size: 2.5em;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .phase-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .price-amount {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection -->
+    <div id="password-overlay">
+        <div class="password-box">
+            <h2>🔒 Accès sécurisé</h2>
+            <p>Cette offre est confidentielle. Veuillez entrer le mot de passe pour y accéder.</p>
+            <input type="password" id="password-input" placeholder="Mot de passe" onkeypress="if(event.key === 'Enter') checkPassword()">
+            <button onclick="checkPassword()">Accéder à l'offre</button>
+        </div>
+    </div>
+
+    <div id="protected-content" class="container">
+        <!-- Header Info -->
+        <div class="header-info">
+            <div class="header-grid">
+                <div class="header-item">
+                    <span class="header-label">Client :</span>
+                    <span>Ramen Shifu - Jane</span>
+                </div>
+                <div class="header-item">
+                    <span class="header-label">Agence :</span>
+                    <span>Téméraire Marketing</span>
+                </div>
+                <div class="header-item">
+                    <span class="header-label">Date :</span>
+                    <span>25 Juin 2025</span>
+                </div>
+                <div class="header-item">
+                    <span class="header-label">Version :</span>
+                    <span>V2.0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Offer Banner -->
+        <div class="offer-banner">
+            <div class="subtitle">Téméraire Marketing 🦁</div>
+            <h1>OFFRE DE PRIX</h1>
+            <p style="font-size: 1.3em; margin: 20px 0;">Stratégie Digitale 360° - Ramen Shifu</p>
+            <p class="ref">REF: TMRR-RAMEN-2025-002</p>
+        </div>
+
+        <!-- Qui est Téméraire -->
+        <div class="section">
+            <div class="section-card">
+                <h2>🦁 Qui est Téméraire Marketing ?</h2>
+                <p style="font-size: 1.1em; margin-bottom: 20px;"><strong>TMRR c'est la première agence marketing de freelances au Luxembourg.</strong> On est une troupe de passionnés qui bouscule les codes du marketing traditionnel avec une approche 100% concrète et sans bullshit.</p>
+                
+                <p style="font-size: 1.1em; margin-bottom: 30px;"><strong>Notre mission ?</strong> Rapporter des clients à nos clients. Point.</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 30px 0;">
+                    <div>
+                        <h3 style="color: #e95241; font-size: 1.3em; margin-bottom: 15px;">🎯 Ce qu'on fait :</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 8px 0;">• Stratégie marketing pragmatique</li>
+                            <li style="padding: 8px 0;">• Campagnes digitales performantes</li>
+                            <li style="padding: 8px 0;">• Créations qui font rugir</li>
+                            <li style="padding: 8px 0;">• Résultats mesurables</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: #e95241; font-size: 1.3em; margin-bottom: 15px;">💪 Notre ADN :</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 8px 0;">• Authenticité (pas de blabla)</li>
+                            <li style="padding: 8px 0;">• Expertise locale Luxembourg</li>
+                            <li style="padding: 8px 0;">• Agilité & réactivité</li>
+                            <li style="padding: 8px 0;">• Transparence totale</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 30px; color: #666; font-style: italic; text-align: center; font-size: 1.1em;">
+                    "Petite par la taille, grande par le professionnalisme. On adore les projets audacieux et les entrepreneurs qui veulent vraiment faire la différence sur leur marché."
+                </p>
+                
+                <div style="text-align: center;">
+                    <a href="https://temeraire-marketing.lu" target="_blank" class="site-button">Découvrir notre site 🦁</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contexte -->
+        <div class="section">
+            <div class="section-card">
+                <h2>🏢 Contexte de mission</h2>
+                <p>Ramen Shifu, c'est l'authenticité japonaise au cœur du Luxembourg avec deux adresses stratégiques. Dans un marché de la restauration asiatique concurrentiel, vos établissements cherchent à renforcer leur présence digitale pour attirer et fidéliser une clientèle diversifiée. L'enjeu : créer une communauté engagée et augmenter la fréquentation des deux restaurants.</p>
+                
+                <div class="insight-box">
+                    <p><strong>💡 Insight clé :</strong> Les restaurants asiatiques qui performent le mieux sur les réseaux sociaux sont ceux qui maîtrisent l'art de la mise en scène visuelle. Un bol de ramen photographié dans les règles de l'art génère 3x plus d'engagement qu'une photo amateur. Au Luxembourg, les micro-influenceurs (1K-10K followers) génèrent un taux d'engagement 60% supérieur aux macro-influenceurs pour la restauration.</p>
+                </div>
+
+                <p>Le défi : transformer votre savoir-faire culinaire en contenu digital captivant qui donne envie de pousser la porte de vos restaurants. Avec une stratégie adaptée aux spécificités de chaque zone (Luxembourg-Ville cosmopolite vs Esch-sur-Alzette résidentiel), nous allons créer une présence digitale qui fait saliver et convertit.</p>
+            </div>
+        </div>
+
+        <!-- Objectifs -->
+        <div class="section">
+            <div class="section-card">
+                <h2>🎯 Objectifs de la mission</h2>
+                <ul class="deliverables">
+                    <li>Augmenter significativement la visibilité sur les réseaux sociaux et développer une communauté engagée</li>
+                    <li>Générer du trafic qualifié vers les deux restaurants via des campagnes digitales ciblées</li>
+                    <li>Créer une image de marque forte et différenciante dans le paysage culinaire luxembourgeois</li>
+                    <li>Construire une base clients solide et fidèle en prévision d'évolutions futures</li>
+                    <li>Optimiser la présence digitale pour attirer une clientèle diversifiée (locale et internationale)</li>
+                    <li>Développer des partenariats B2B avec les entreprises locales pour augmenter les commandes groupées</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Résultats attendus -->
+        <div class="section">
+            <div class="section-card">
+                <h2>📈 Résultats attendus</h2>
+                <p>Notre approche marketing pragmatique vise des résultats concrets et mesurables pour vos deux restaurants :</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">📸</span>
+                        <div class="benefit-text">
+                            <span class="benefit-value">Contenu visuel premium</span><br>
+                            Une banque d'images et vidéos professionnelles qui valorisent votre cuisine
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">👥</span>
+                        <div class="benefit-text">
+                            <span class="benefit-value">Communauté engagée</span><br>
+                            Des followers actifs qui deviennent des ambassadeurs de votre marque
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🎯</span>
+                        <div class="benefit-text">
+                            <span class="benefit-value">Trafic qualifié</span><br>
+                            Des campagnes qui amènent les bonnes personnes au bon moment
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">💼</span>
+                        <div class="benefit-text">
+                            <span class="benefit-value">Partenariats B2B</span><br>
+                            Des entreprises locales qui commandent régulièrement pour leurs équipes
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VOLET 1 - Production Visuelle -->
+        <div class="section">
+            <div class="section-card">
+                <h2>📸 VOLET 1 - Production Visuelle Premium</h2>
+                
+                <h3>✨ Les bénéfices</h3>
+                <ul>
+                    <li>Des visuels qui captent l'essence et l'authenticité de votre cuisine japonaise</li>
+                    <li>Une cohérence visuelle forte sur tous vos supports de communication</li>
+                    <li>Du contenu adapté à chaque plateforme (format carré, vertical, horizontal)</li>
+                    <li>Une banque d'images suffisante pour alimenter 3 mois de publications</li>
+                </ul>
+
+                <h3>📋 Programme de production</h3>
+                
+                <div class="phase-card">
+                    <div class="phase-header">
+                        <div class="phase-title">🔸 2 Sessions de shooting photo/vidéo</div>
+                        <div class="phase-meta">
+                            <span class="phase-price">1 076,25€ HT</span>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>1 session par restaurant (Luxembourg + Esch-sur-Alzette)</li>
+                        <li>Captation de l'ambiance, des plats signature, de l'équipe en action</li>
+                        <li>Photos produits pour chaque catégorie du menu</li>
+                        <li>Vidéos courtes format Reels/TikTok (préparation, service, expérience client)</li>
+                        <li>Focus sur l'artisanat et le savoir-faire culinaire</li>
+                    </ul>
+                </div>
+
+                <h3>✅ Livrables</h3>
+                <ul class="deliverables">
+                    <li>Photos professionnelles type Social Media adaptées au secteur HORESCA</li>
+                    <li>Vidéos courtes format Reels/TikTok montées et optimisées</li>
+                    <li>Formats adaptés pour Instagram, Facebook, TikTok</li>
+                    <li>Guide d'utilisation des visuels par plateforme</li>
+                    <li>Droits d'utilisation illimités sur tous supports</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- VOLET 2 - Campagnes Meta Ads & Emailing -->
+        <div class="section">
+            <div class="section-card">
+                <h2>🚀 VOLET 2 - Campagnes Meta Ads & Emailing B2B</h2>
+                
+                <h3>✨ Les bénéfices</h3>
+                <ul>
+                    <li>Visibilité accrue auprès de votre cible locale avec un ciblage ultra-précis</li>
+                    <li>Génération de trafic qualifié directement vers vos restaurants</li>
+                    <li>Développement d'une clientèle corporate régulière via l'emailing B2B</li>
+                    <li>ROI mesurable et optimisation continue des performances</li>
+                </ul>
+
+                <h3>📋 Services inclus</h3>
+                
+                <div class="phase-card">
+                    <div class="phase-header">
+                        <div class="phase-title">🔸 Campagnes Facebook & Instagram Ads</div>
+                        <div class="phase-meta">
+                            <span class="phase-price">1 383,75€ HT</span>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>Création et paramétrage du Business Manager Meta (si nécessaire)</li>
+                        <li>Stratégie de ciblage différenciée Luxembourg-Ville / Esch-sur-Alzette</li>
+                        <li>Création de 3-4 campagnes thématiques (découverte, fidélisation, promotions)</li>
+                        <li>A/B testing des créatifs et des audiences</li>
+                        <li>Optimisation hebdomadaire des performances</li>
+                        <li>Reporting mensuel détaillé avec recommandations</li>
+                    </ul>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-header">
+                        <div class="phase-title">🔸 Campagne Emailing B2B</div>
+                    </div>
+                    <ul>
+                        <li>Ciblage des entreprises quartier Gare Luxembourg</li>
+                        <li>Ciblage des entreprises zone Esch-sur-Alzette</li>
+                        <li>Création de 2 séquences de 2 emails (4 emails au total)</li>
+                        <li>Design de templates attractifs avec menus du jour</li>
+                        <li>Offres corporate exclusives (réductions volume, livraison groupée)</li>
+                        <li>Suivi des ouvertures et conversions</li>
+                    </ul>
+                </div>
+
+                <h3>✅ Livrables</h3>
+                <ul class="deliverables">
+                    <li>Business Manager Meta configuré et opérationnel</li>
+                    <li>3-4 campagnes publicitaires actives et optimisées</li>
+                    <li>Base de données B2B qualifiée (location TMRR)</li>
+                    <li>2 séquences email B2B envoyées (4 emails au total)</li>
+                    <li>Rapports de performance mensuels</li>
+                    <li>Recommandations stratégiques continues</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- VOLET 2 BIS - Budget Média -->
+        <div class="section">
+            <div class="section-card">
+                <h2>💳 VOLET 2 BIS - Budget Média (À votre charge)</h2>
+                
+                <div class="warning-box">
+                    <p>⚠️ <strong>Important :</strong> Les budgets publicitaires sont à provisionner directement par vos soins sur les plateformes. TMRR ne prend aucune commission sur ces investissements média.</p>
+                </div>
+
+                <h3>📊 Budget recommandé</h3>
+                
+                <div class="phase-card">
+                    <div class="phase-header">
+                        <div class="phase-title">🔸 Investissement Meta Ads</div>
+                        <div class="phase-meta">
+                            <span class="phase-price">~300€/mois TTC</span>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>Budget quotidien recommandé : ~10€/jour</li>
+                        <li>Paiement direct avec votre carte bancaire sur Meta</li>
+                        <li>Budget flexible selon vos objectifs et nos recommandations</li>
+                        <li>Possibilité d'augmenter lors d'événements spéciaux</li>
+                        <li>Gestion et optimisation du budget par TMRR incluse</li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 20px; color: #666;">
+                    💡 Ce budget est une recommandation basée sur notre expérience. Il peut être ajusté à la hausse ou à la baisse selon vos objectifs et les performances observées.
+                </p>
+            </div>
+        </div>
+
+        <!-- VOLET 3 - Community Management -->
+        <div class="section">
+            <div class="section-card">
+                <h2>📱 VOLET 3 - Community Management & Animation</h2>
+                
+                <h3>✨ Les bénéfices</h3>
+                <ul>
+                    <li>Une présence digitale active et engageante 7j/7</li>
+                    <li>Une communauté qui grandit et interagit avec votre marque</li>
+                    <li>Une e-réputation maîtrisée et positive</li>
+                    <li>Du contenu viral qui augmente votre portée organique</li>
+                </ul>
+
+                <h3>📋 Services détaillés</h3>
+                
+                <div class="phase-card">
+                    <div class="phase-header">
+                        <div class="phase-title">🔸 Production de contenus</div>
+                        <div class="phase-meta">
+                            <span class="phase-price">1 244€ HT</span>
+                        </div>
+                    </div>
+                    <ul>
+                        <li><strong>2 posts/semaine</strong> (24 posts sur 3 mois)</li>
+                        <li><strong>2 stories/semaine</strong> (24 stories sur 3 mois)</li>
+                        <li><strong>1 Reels/semaine</strong> si contenu disponible</li>
+                        <li>Utilisation de vos photos + banque d'images libres de droits</li>
+                        <li>Mise en avant produits, services et événements</li>
+                        <li>Descriptions personnalisées alignées sur votre image de marque</li>
+                        <li>Hashtags stratégiques et adaptés (#RamenLuxembourg #JapaneseFoodLux)</li>
+                    </ul>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-header">
+                        <div class="phase-title">🔸 Engagement & E-réputation</div>
+                    </div>
+                    <ul>
+                        <li>Gestion e-réputation 1h/mois (Google Business, réseaux sociaux)</li>
+                        <li>Modération active des commentaires</li>
+                        <li>Réponses personnalisées aux messages privés</li>
+                        <li>Développement notoriété et fidélisation</li>
+                    </ul>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #e95241 0%, #d63a29 100%); color: white; padding: 30px; border-radius: 15px; margin: 25px 0; text-align: center; position: relative; overflow: hidden; box-shadow: 0 10px 25px rgba(233, 82, 65, 0.3);">
+                    <div style="position: absolute; top: -40px; right: -40px; font-size: 120px; opacity: 0.1;">🎯</div>
+                    <h3 style="color: white; font-size: 1.8em; margin-bottom: 20px;">⚡ BONUS EXCLUSIF : Challenge "Ramen Experience"</h3>
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Une activation virale pour faire exploser votre visibilité !</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <ul style="list-style: none; padding: 0; text-align: left;">
+                            <li style="padding: 8px 0;">✨ Création d'un challenge viral TikTok/Reels sur mesure</li>
+                            <li style="padding: 8px 0;">✨ Mécanique d'engagement avec hashtag dédié #RamenExperienceLux</li>
+                            <li style="padding: 8px 0;">✨ Incitation au partage d'expérience client (UGC)</li>
+                            <li style="padding: 8px 0;">✨ Animation intensive pendant 1 mois</li>
+                            <li style="padding: 8px 0;">✨ Amplification via votre communauté</li>
+                        </ul>
+                    </div>
+                    <p style="margin-top: 20px; font-style: italic;">💡 Les restaurants qui lancent des challenges voient leur engagement x5 !</p>
+                    <p style="margin-top: 20px; background: rgba(255,255,255,0.3); padding: 15px; border-radius: 8px; font-size: 0.95em; border-left: 3px solid white;">
+                        <strong>*</strong> La mécanique détaillée du challenge n'est pas exhaustive ni contractuelle et sera définie en collaboration avec le client lors du lancement.
+                    </p>
+                </div>
+
+                <h3>✅ Livrables</h3>
+                <ul class="deliverables">
+                    <li>Calendrier éditorial mensuel validé en amont</li>
+                    <li>Publications régulières selon le planning défini</li>
+                    <li>Rapport d'engagement mensuel</li>
+                    <li>Veille concurrentielle incluse</li>
+                    <li>Recommandations d'amélioration continue</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- VOLET 4 - Influence -->
+        <div class="section">
+            <div class="section-card">
+                <h2>✨ VOLET 4 - Campagne d'Influence Locale</h2>
+                
+                <h3>✨ Les bénéfices</h3>
+                <ul>
+                    <li>Crédibilité accrue via des recommandations authentiques</li>
+                    <li>Accès à de nouvelles audiences qualifiées</li>
+                    <li>Contenu généré par des tiers (User Generated Content)</li>
+                    <li>Effet de bouche-à-oreille digital amplifié</li>
+                </ul>
+
+                <h3>📋 Programme d'influence</h3>
+                
+                <div class="phase-card">
+                    <div class="phase-header">
+                        <div class="phase-title">🔸 Gestion complète de campagne</div>
+                        <div class="phase-meta">
+                            <span class="phase-price">615€ HT</span>
+                        </div>
+                    </div>
+                    <ul>
+                        <li>Identification de micro-influenceurs locaux pertinents</li>
+                        <li>Focus food bloggers et lifestyle Luxembourg</li>
+                        <li>Négociation des partenariats (invitations, conditions)</li>
+                        <li>Brief créatif et guidelines de publication</li>
+                        <li>Coordination des visites dans vos restaurants</li>
+                        <li>Suivi des publications et performances</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <p>⚠️ <strong>Note :</strong> Les éventuelles rémunérations financières ou invitations restaurant pour les influenceurs ne sont pas incluses dans ce devis et restent à votre charge. Nous recommandons un budget de 300-500€ pour les invitations.</p>
+                </div>
+
+                <h3>✅ Livrables</h3>
+                <ul class="deliverables">
+                    <li>Liste qualifiée d'influenceurs avec statistiques</li>
+                    <li>Planning de publications coordonnées</li>
+                    <li>Gestion complète des partenariats influenceurs</li>
+                    <li>Rapport de performance de la campagne</li>
+                    <li>Recommandations pour futures collaborations</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Synthèse financière -->
+        <div class="section">
+            <div class="section-card">
+                <h2>💼 Synthèse Financière</h2>
+                
+                <div class="financial-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Volet</th>
+                                <th>Description</th>
+                                <th>Montant HT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Volet 1</td>
+                                <td>Production Visuelle Premium</td>
+                                <td>1 076,25 €</td>
+                            </tr>
+                            <tr>
+                                <td>Volet 2</td>
+                                <td>Campagnes Meta Ads & Emailing B2B</td>
+                                <td>1 383,75 €</td>
+                            </tr>
+                            <tr>
+                                <td>Volet 3</td>
+                                <td>Community Management & Animation</td>
+                                <td>1 244,00 €</td>
+                            </tr>
+                            <tr>
+                                <td>Volet 4</td>
+                                <td>Campagne d'Influence Locale</td>
+                                <td>615,00 €</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>Sous-total avant remise</strong></td>
+                                <td><strong>4 319,00 €</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="price-highlight">
+                    <h3>Tarif préférentiel août 2025</h3>
+                    <div class="price-savings">-10% de remise exclusive</div>
+                    <div class="price-amount">3 887€ HT</div>
+                    <p style="color: #666; font-size: 1.1em;">au lieu de 4 319€ HT</p>
+                </div>
+
+                <div style="background: #F8F9FA; padding: 25px; border-radius: 15px; margin: 30px 0;">
+                    <p style="font-size: 1.1em; margin-bottom: 15px;">💡 <strong>Investissements additionnels à prévoir :</strong></p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 5px 0;">• Budget publicitaire Meta : ~300€/mois TTC (géré directement par vous)</li>
+                        <li style="padding: 5px 0;">• Invitations influenceurs : 300-500€ (selon vos choix)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Planning -->
+        <div class="section">
+            <div class="section-card">
+                <h2>📅 Planning & Organisation</h2>
+                <p style="font-size: 1.2em; margin-bottom: 25px;"><strong>Durée totale :</strong> 3 mois (août - octobre 2025)</p>
+                
+                <div class="phase-card">
+                    <div class="phase-title">📆 Organisation mensuelle</div>
+                    <ul>
+                        <li><strong>Mois 1 (Août) :</strong> Production visuelle, setup campagnes, lancement community management</li>
+                        <li><strong>Mois 2 (Septembre) :</strong> Optimisation campagnes, challenge viral, premières collaborations influenceurs</li>
+                        <li><strong>Mois 3 (Octobre) :</strong> Intensification des actions, analyse des résultats, recommandations futures</li>
+                    </ul>
+                </div>
+
+                <div class="phase-card">
+                    <div class="phase-title">🗓️ Jalons clés</div>
+                    <ul>
+                        <li><strong>Semaine 1-2 :</strong> Brief créatif et sessions photo/vidéo</li>
+                        <li><strong>Semaine 3 :</strong> Lancement des campagnes digitales</li>
+                        <li><strong>Semaine 4 :</strong> Démarrage community management actif</li>
+                        <li><strong>Mois 2 :</strong> Lancement challenge viral et influenceurs</li>
+                        <li><strong>Mensuel :</strong> Reporting et ajustements stratégiques</li>
+                    </ul>
+                </div>
+
+                <div style="background: #F8F9FA; padding: 25px; border-radius: 15px; margin: 30px 0;">
+                    <p style="font-size: 1.1em; margin-bottom: 15px;">📌 <strong>Note importante :</strong></p>
+                    <p>La date de démarrage exacte sera confirmée au moment de la validation de l'offre par le client, selon vos disponibilités et les créneaux réservés de TMRR en août. Nous recommandons un lancement mi-août pour capitaliser sur la rentrée de septembre.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modalités -->
+        <div class="section">
+            <div class="section-card">
+                <h2>⚖️ Modalités contractuelles</h2>
+                
+                <p><strong>Obligation de moyens :</strong> Cette mission s'inscrit dans une obligation de moyens. TMRR s'engage à mettre en œuvre son expertise, sa méthodologie éprouvée et tous les moyens techniques et humains nécessaires pour augmenter votre visibilité digitale et développer votre clientèle via une stratégie marketing multi-canal performante.</p>
+
+                <p style="margin: 25px 0;"><strong>Nous nous engageons sur :</strong></p>
+                <ul class="deliverables">
+                    <li>La production de contenus visuels premium dans les délais</li>
+                    <li>La gestion professionnelle de vos campagnes publicitaires</li>
+                    <li>Une animation communautaire active et engageante</li>
+                    <li>La coordination efficace des partenariats influenceurs</li>
+                    <li>Un reporting transparent et régulier des performances</li>
+                    <li>La réactivité et l'adaptabilité face aux résultats observés</li>
+                    <li>La confidentialité totale sur votre stratégie marketing</li>
+                </ul>
+
+                <div style="background: #F8F9FA; padding: 25px; border-radius: 15px; margin: 30px 0;">
+                    <p><strong>💳 Conditions de paiement :</strong></p>
+                    <ul style="margin-top: 15px;">
+                        <li>30% à la commande : 1 166€ HT</li>
+                        <li>30% à 30 jours : 1 166€ HT</li>
+                        <li>40% à 60 jours : 1 555€ HT</li>
+                        <li>Paiement par virement bancaire</li>
+                    </ul>
+                </div>
+
+                <p style="color: #666; margin-top: 25px;">
+                    Cette offre est valable 30 jours<br>
+                    Conditions générales disponibles sur <a href="https://temeraire-marketing.lu/cgv/" style="color: #e95241;">https://temeraire-marketing.lu/cgv/</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-container">
+            <h2 style="text-align: center; margin-bottom: 20px;">Prête à faire rayonner Ramen Shifu sur le digital ?</h2>
+            <p style="text-align: center; font-size: 1.2em; color: #666; margin-bottom: 30px;">Transformons ensemble votre excellence culinaire en succès digital mesurable.</p>
+            
+            <a href="mailto:damien@temeraire-marketing.lu?subject=Validation%20Stratégie%20Digitale%20Ramen%20Shifu&body=Bonjour%20Damien,%0A%0AJ'ai%20bien%20reçu%20votre%20offre%20pour%20notre%20stratégie%20digitale%20sur%203%20mois.%0A%0AJe%20souhaiterais%20valider%20cette%20collaboration%20et%20discuter%20du%20planning%20de%20démarrage.%0A%0ACordialement,%0AJane%20-%20Ramen%20Shifu" 
+               class="cta-button">
+                Je valide cette stratégie 🚀
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h2 style="color: #0B2326; text-align: center;">Une question ? Un ajustement ?</h2>
+            <p style="color: #666; margin-bottom: 30px; text-align: center;">Notre troupe est là pour adapter cette offre à vos besoins spécifiques !</p>
+            
+            <div class="footer-contacts">
+                <p><strong>Vos contacts privilégiés :</strong></p>
+                <p>Damien Batista - damien@temeraire-marketing.lu - +352 691 144 252<br>
+                Marie-Rébecca Ruivo - moien@temeraire-marketing.lu - +352 691 315 634<br>
+                Cédric Aque - cedric@temeraire-marketing.lu - +352 661 610 174</p>
+            </div>
+            
+            <p class="footer-brand">
+                🦁 Téméraire Marketing - La première agence marketing de freelances au Luxembourg
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            const correctPassword = 'TMRR25*RAMEN8';
+            
+            if (password === correctPassword) {
+                document.getElementById('password-overlay').style.display = 'none';
+                document.getElementById('protected-content').style.display = 'block';
+            } else {
+                alert('Mot de passe incorrect. Veuillez réessayer.');
+                document.getElementById('password-input').value = '';
+            }
+        }
+    </script>
+</body>
+</html>
